@@ -3,8 +3,10 @@ import json
 import urllib.request
 import datetime
 import csv
+import os.path
 
-CONFIG_FILE = 'config.cfg'
+CONFIG_FILE = os.path.join(os.path.abspath(os.path.dirname(__file__)),'config.cfg')
+DATA_FILE = os.path.join(os.path.abspath(os.path.dirname(__file__)),'data.json')
 cfg = yaml.load(open(CONFIG_FILE, 'r'), Loader=yaml.FullLoader)
 PRIVAT_ID = cfg['privat']['id']
 PRIVAT_TOKEN = cfg['privat']['token']
@@ -24,6 +26,8 @@ balance = result['balances'][0]["balanceOut"]
 
 data = {}
 data['balance'] = balance
+data['day'] = datetime.date.today().strftime("%d/%m/%Y")
+data['time'] = datetime.datetime.now().strftime("%H:%M")
 
-with open('data.json', 'w') as outfile:
+with open(DATA_FILE, 'w') as outfile:
     json.dump(data, outfile)
