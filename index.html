@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hello Money</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.1/css/bulma.min.css"/>
+    <link rel="stylesheet" href="style.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet"> 
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+  </head>
+  <body>
+    <div class="section">
+      <div class="container main">
+        <h1 style="text-align: center" class="title is-1">Фінансова жопа Хаклаба</h1>
+        <p class="status-container">Статус: <span id="status"></span></p>
+        <p class="status-container">На рахунку <span id="current"></span> грн з потрібних <span id="goal"></span></p>
+        <progress id="progress" class="progress" value="0" max="100"></progress>
+        <p class="status-container hidden">Наша подушка: <span id = "pillow"></span> грн</p>
+        <p class="status-container" style="font-size:16px">Дані оновлюються щоночі</p>
+      </div>
+    </div>
+    <script>
+      const GOAL = 23000;
+      let main = document.getElementById("main");
+      let status = document.getElementById("status");
+      let progress = document.getElementById("progress");
+      let current = document.getElementById("current");
+      let goal = document.getElementById("goal");
+      goal.textContent = GOAL;
+      fetch("data.json")
+        .then(response => response.json())
+        .then(json => {
+          let balance = parseFloat(json['balance']);
+          current.textContent = balance;
+          if (balance < GOAL) {
+            status.textContent = "Хаклаб в жопі";
+            status.classList.add('alert');
+            progress.classList.add("is-danger");
+          } else {
+            status.textContent = "Хаклаб не в жопі";
+            status.classList.add('cool');
+            progress.classList.add("is-success");
+            let pillow = document.getElementById("pillow");
+            let surplus = balance - GOAL;
+            pillow.textContent = surplus;
+            pillow.parentNode.classList.remove('hidden');
+          }
+          let percent = balance*100/GOAL;
+          progress.setAttribute("value", percent);
+        })
+
+    </script>
+  </body>
+</html>
