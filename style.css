@@ -18,6 +18,10 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
+.title {
+    text-align: center;
+}
+
 .status-container {
     margin: 40px auto;
     text-align: center;
@@ -38,6 +42,10 @@ body {
 
 .cool {
     color: #0a540f;
+}
+
+.people_chart .ct-series-a .ct-bar {
+    stroke: #216996;
 }
 
 @media all and (max-width: 768px) {

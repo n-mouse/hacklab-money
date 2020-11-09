@@ -7,23 +7,33 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.1/css/bulma.min.css"/>
     <link rel="stylesheet" href="style.css"/>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+    <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
     <script src="https://d3js.org/d3.v6.min.js"></script>
   </head>
   <body>
     <div class="section">
       <div class="container main">
-        <h1 style="text-align: center" class="title is-1">Фінансова жопа Хаклаба</h1>
+        <h1 class="title is-1">Фінансова жопа Хаклаба</h1>
         <p class="status-container">Статус: <span id="status"></span></p>
         <p class="status-container">На рахунку <span id="current"></span> грн з потрібних <span id="goal"></span></p>
         <progress id="progress" class="progress" value="0" max="100"></progress>
         <p class="status-container hidden">Наша подушка: <span id = "pillow"></span> грн</p>
         <p class="status-container" style="font-size:16px">
-          Дані оновлюються щодня. Останнє оновлення: <span id="date"></span> <span id="time"></span>
+          Дані оновлюються раз на добу. Останнє оновлення: <span id="date"></span> <span id="time"></span>
         </p>
       </div>
     </div>
+    <div class="section">
+      <div class="container">
+        <h4 class="title is-4">Кількість людей, що робили внески у 2020, по місяцям</h4>
+        <div class="chart-container"> 
+          <div class="people_chart ct-double-octave"></div>
+      </div>
+      </div>
+    </div>
     <script>
-      const GOAL = 23000;
+      const GOAL = 22500;
       let main = document.getElementById("main");
       let status = document.getElementById("status");
       let progress = document.getElementById("progress");
@@ -55,6 +65,22 @@
           sdate.textContent = json['day'];
           stime.textContent = json['time'];
         })
+
+        d3.csv("data.csv").then(function(data) {
+          let credit = data.filter(function(d) { return d.ttype == "C"; });
+          
+          let credit_group = d3.groups(credit, d => d.month);
+          let chrtst_series = []
+          let chrtst_labels = ["січень", "лютий", "березень", "квітень", "травень", "червень", "липень", "серпень", "вересень", "жовтень", "листопад", "грудень"]
+          for (let i = 0; i < credit_group.length; i++) {
+            let cnt = credit_group[i][1].map(x => x.person).reduce(function(a,b){if(a.indexOf(b)<0)a.push(b);return a;},[]).length;
+            chrtst_series.push(cnt);
+          }  
+          new Chartist.Bar('.people_chart', {
+                labels: chrtst_labels,
+                series: [chrtst_series]
+            });
+        });
 
     </script>
   </body>
