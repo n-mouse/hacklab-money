@@ -28,11 +28,24 @@
       <div class="container">
         <h4 class="title is-4">Кількість людей, що робили внески у 2020, по місяцям</h4>
         <div class="chart-container"> 
-          <div class="people_chart ct-double-octave"></div>
+          <div id="people_chart" class="people_chart ct-double-octave"></div>
       </div>
       </div>
     </div>
     <script>
+      let people_chart = document.getElementById("people_chart");
+      function setChartDims() {
+        if (window.innerWidth < 768) {
+          people_chart.classList.remove("ct-double-octave");
+          people_chart.classList.add("ct-minor-sixth");
+        } else {
+          people_chart.classList.remove("ct-minor-sixth");
+          people_chart.classList.add("ct-double-octave");          
+        }
+      }
+      setChartDims();
+      window.onresize = setChartDims;
+
       const GOAL = 22500;
       let main = document.getElementById("main");
       let status = document.getElementById("status");
@@ -76,10 +89,27 @@
             let cnt = credit_group[i][1].map(x => x.person).reduce(function(a,b){if(a.indexOf(b)<0)a.push(b);return a;},[]).length;
             chrtst_series.push(cnt);
           }  
+
+          let options = {
+          };
+
+          let responsiveOptions = [
+            ['screen and (max-width: 640px)', {
+              chartPadding: 0,
+              axisY: {
+                offset: 25
+              },
+              axisX: {
+                labelInterpolationFnc: function (value) {
+                  return value[0];
+                }
+              }
+            }]
+          ];
           new Chartist.Bar('.people_chart', {
                 labels: chrtst_labels,
                 series: [chrtst_series]
-            });
+            }, options, responsiveOptions);
         });
 
     </script>
