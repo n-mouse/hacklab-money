@@ -14,7 +14,7 @@
   <body>
     <div class="section">
       <div class="container main">
-        <h1 class="title is-1">Фінансова жопа Хаклаба</h1>
+        <h1 class="title is-1">Фінансовий стан Хаклаба</h1>
         <p class="status-container">Статус: <span id="status"></span></p>
         <p class="status-container">На рахунку <span id="current"></span> грн з потрібних <span id="goal"></span></p>
         <progress id="progress" class="progress" value="0" max="100"></progress>
@@ -61,11 +61,11 @@
           let balance = parseFloat(json['balance']);
           current.textContent = balance;
           if (balance < GOAL) {
-            status.textContent = "Хаклаб в жопі";
+            status.textContent = "Хаклаб у скруті";
             status.classList.add('alert');
             progress.classList.add("is-danger");
           } else {
-            status.textContent = "Хаклаб не в жопі";
+            status.textContent = "Хаклаб не в скруті";
             status.classList.add('cool');
             progress.classList.add("is-success");
             let pillow = document.getElementById("pillow");

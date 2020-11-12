@@ -13,7 +13,7 @@ PRIVAT_ID = cfg['privat']['id']
 PRIVAT_TOKEN = cfg['privat']['token']
 PRIVAT_ACCOUNT = cfg['privat']['account']
 
-url_balance = 'https://acp.privatbank.ua/api/statements/balance/final?acc='+PRIVAT_ACCOUNT
+url_balance = 'https://acp.privatbank.ua/api/statements/balance/interim?acc='+PRIVAT_ACCOUNT
 url_transactions= 'https://acp.privatbank.ua/api/statements/transactions/interim?acc='+PRIVAT_ACCOUNT 
 headers = {
   'Content-Type' : 'application/json;charset=utf8',
