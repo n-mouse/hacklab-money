@@ -26,7 +26,7 @@
     </div>
     <div class="section">
       <div class="container">
-        <h4 class="title is-4">Кількість людей, що робили внески у 2020, по місяцям</h4>
+        <h4 class="title is-4">Кількість внесків у 2020, по місяцям</h4>
         <div class="chart-container"> 
           <div id="people_chart" class="people_chart ct-double-octave"></div>
       </div>
@@ -83,10 +83,11 @@
           let credit = data.filter(function(d) { return d.ttype == "C"; });
           
           let credit_group = d3.groups(credit, d => d.month);
+          console.log(credit_group)
           let chrtst_series = []
           let chrtst_labels = ["січень", "лютий", "березень", "квітень", "травень", "червень", "липень", "серпень", "вересень", "жовтень", "листопад", "грудень"]
           for (let i = 0; i < credit_group.length; i++) {
-            let cnt = credit_group[i][1].map(x => x.person).reduce(function(a,b){if(a.indexOf(b)<0)a.push(b);return a;},[]).length;
+            let cnt = credit_group[i][1].length;
             chrtst_series.push(cnt);
           }  
 
