@@ -58,7 +58,7 @@
       fetch("data.json")
         .then(response => response.json())
         .then(json => {
-          let balance = parseFloat(json['balance']);
+          let balance = parseInt(json['balance']);
           current.textContent = balance;
           if (balance < GOAL) {
             status.textContent = "Хаклаб у скруті";
