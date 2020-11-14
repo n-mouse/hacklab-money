@@ -43,13 +43,19 @@ while resultt['exist_next_page']:
   resultt = json.loads(responset.read())
   transactions += resultt['transactions']
 
+ids = set()
+with open(DATA_FILE2) as history:
+  for row in csv.reader(history):
+    ids.add(row[0])
+
 with open(DATA_FILE2, 'a') as out:
   csvout = csv.writer(out)
   for transaction in transactions:
-    csvout.writerow([
-        transaction['DAT_OD'].split(".")[0],
-        transaction['DAT_OD'].split(".")[1],
-        transaction['DAT_OD'].split(".")[2],
-        transaction['TRANTYPE'],
-        transaction['SUM'],
-        transaction['OSND']])
+    if transaction['ID'] not in ids:
+      csvout.writerow([
+          transaction['ID'],
+          transaction['DAT_OD'].split(".")[0],
+          transaction['DAT_OD'].split(".")[1],
+          transaction['DAT_OD'].split(".")[2],
+          transaction['TRANTYPE'],
+          transaction['SUM']])
