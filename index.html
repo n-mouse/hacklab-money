@@ -26,37 +26,40 @@
     </div>
     <div class="section">
       <div class="container">
-        <h4 class="title is-4">Кількість внесків у 2020, по місяцям</h4>
-        <div class="chart-container"> 
-          <div id="people_chart" class="people_chart ct-double-octave"></div>
+        <div class="columns is-desktop">
+          <div class="column is-two-thirds-desktop is-full-mobile">
+            <h4 class="title is-4">Кількість внесків у 2020, по місяцям</h4>
+            <div class="chart-container"> 
+              <div id="people_chart" class="people_chart ct-major-tenth"></div>
+            </div>
+          </div>
+          <div class="column is-full-mobile">
+            <h4 class="title is-4">Останні внески</h4>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Дата</th>
+                  <th style="text-align: right;">Сума</th>
+                </tr>
+              <thead>
+              <tbody id="history_table">
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
-    <div class="section">
-      <div class="container">
-        <h4 class="title is-4">Останні внески</h4>
-        <table class="table" align="center">
-          <thead>
-            <tr>
-              <th>Дата</th>
-              <th>Сума</th>
-            </tr>
-          <thead>
-          <tbody id="history_table">
-          </tbody>
-        </table>
-      </div>
-    </div>
+
     <script>
       let history_table = document.getElementById("history_table");
       let people_chart = document.getElementById("people_chart");
       function setChartDims() {
         if (window.innerWidth < 768) {
-          people_chart.classList.remove("ct-double-octave");
+          people_chart.classList.remove("ct-major-tenth");
           people_chart.classList.add("ct-minor-sixth");
         } else {
           people_chart.classList.remove("ct-minor-sixth");
-          people_chart.classList.add("ct-double-octave");          
+          people_chart.classList.add("ct-major-tenth");          
         }
       }
       setChartDims();
@@ -137,6 +140,7 @@
             tr.appendChild(td);
             td = document.createElement('td');
             td.appendChild(document.createTextNode(row.sum));
+            td.style.textAlign = "right"
             tr.appendChild(td);
             history_table.appendChild(tr);
           })

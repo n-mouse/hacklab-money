@@ -49,6 +49,10 @@ body {
     stroke-width: 25px;
 }
 
+.table {
+    margin: auto;
+}
+
 @media all and (max-width: 768px) {
 
     h1.title.is-1 {
@@ -63,6 +67,14 @@ body {
 
     .people_chart .ct-series-a .ct-bar {
         stroke-width: 15px;
+    }
+
+    .section {
+        padding: 1.5rem;
+    }
+
+    .column {
+        padding-bottom: 2rem;
     }
 
 }
