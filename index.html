@@ -136,10 +136,10 @@
             var tr = document.createElement('tr');
             var td = document.createElement('td');
             td.appendChild(
-                document.createTextNode(row.day + '-' + row.month + '-' + row.year));
+                document.createTextNode(row.day + '-' + row.month + '-' + row.year + ' ' + row.time));
             tr.appendChild(td);
             td = document.createElement('td');
-            td.appendChild(document.createTextNode(row.sum));
+            td.appendChild(document.createTextNode(Number.parseFloat(row.sum).toFixed(2)));
             td.style.textAlign = "right"
             tr.appendChild(td);
             history_table.appendChild(tr);

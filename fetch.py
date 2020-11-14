@@ -58,4 +58,5 @@ with open(DATA_FILE2, 'a') as out:
           transaction['DAT_OD'].split(".")[1],
           transaction['DAT_OD'].split(".")[2],
           transaction['TRANTYPE'],
-          transaction['SUM']])
+          transaction['SUM'],
+          transaction['TIM_P']])
