@@ -8,7 +8,7 @@ import os.path
 CONFIG_FILE = os.path.join(os.path.abspath(os.path.dirname(__file__)),'config.cfg')
 DATA_FILE = os.path.join(os.path.abspath(os.path.dirname(__file__)),'data.json')
 DATA_FILE2 = os.path.join(os.path.abspath(os.path.dirname(__file__)),'data.csv')
-cfg = yaml.load(open(CONFIG_FILE, 'r'), Loader=yaml.FullLoader)
+cfg = yaml.load(open(CONFIG_FILE, 'r'), Loader=yaml.BaseLoader)
 PRIVAT_ID = cfg['privat']['id']
 PRIVAT_TOKEN = cfg['privat']['token']
 PRIVAT_ACCOUNT = cfg['privat']['account']
