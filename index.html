@@ -132,7 +132,7 @@
             }, options, responsiveOptions);
 
           const HISTORY = 10;
-          data.slice(Math.max(data.length - HISTORY, 1)).forEach(row => {
+          data.slice(Math.max(data.length - HISTORY, 1)).reverse().forEach(row => {
             var tr = document.createElement('tr');
             var td = document.createElement('td');
             td.appendChild(
