@@ -28,7 +28,7 @@
       <div class="container">
         <div class="columns is-desktop">
           <div class="column is-two-thirds-desktop is-full-mobile">
-            <h4 class="title is-4">Кількість внесків у 2020, по місяцям</h4>
+            <h4 class="title is-4">Кількість внесків по місяцям</h4>
             <div class="chart-container"> 
               <div id="people_chart" class="people_chart ct-major-tenth"></div>
             </div>
@@ -100,14 +100,21 @@
 
         d3.csv("data.csv").then(function(data) {
           let credit = data.filter(function(d) { return d.ttype == "C"; });
-          
-          let credit_group = d3.groups(credit, d => d.month);
-          console.log(credit_group)
+          let month_year = [];
+          credit.forEach(x => month_year.push({day: x.day, month: x.month+' '+x.year, sum: x.sum}));
+          let credit_group = d3.groups(month_year, d => d.month);
           let chrtst_series = []
-          let chrtst_labels = ["січень", "лютий", "березень", "квітень", "травень", "червень", "липень", "серпень", "вересень", "жовтень", "листопад", "грудень"]
+          let labels = ["січень", "лютий", "березень", "квітень", "травень", "червень", "липень", "серпень", "вересень", "жовтень", "листопад", "грудень"]
+          let chrtst_labels = [];
           for (let i = 0; i < credit_group.length; i++) {
             let cnt = credit_group[i][1].length;
+            let m_n = parseInt(credit_group[i][0].split(" ")[0]);
+            let label = labels[m_n-1];
+            if (i === 0 || m_n === 1) {
+              label = label + ' ' + credit_group[i][0].split(" ")[1];
+            }
             chrtst_series.push(cnt);
+            chrtst_labels.push(label);
           }  
 
           let options = {
