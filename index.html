@@ -104,7 +104,7 @@
           credit.forEach(x => month_year.push({day: x.day, month: x.month+' '+x.year, sum: x.sum}));
           let credit_group = d3.groups(month_year, d => d.month);
           let chrtst_series = []
-          let labels = ["січень", "лютий", "березень", "квітень", "травень", "червень", "липень", "серпень", "вересень", "жовтень", "листопад", "грудень"]
+          let labels = ["січ", "лют", "бер", "кві", "тра", "чер", "лип", "сер", "вер", "жов", "лис", "гру"]
           let chrtst_labels = [];
           for (let i = 0; i < credit_group.length; i++) {
             let cnt = credit_group[i][1].length;
