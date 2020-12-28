@@ -32,13 +32,13 @@
             <section>
               <h4 class="title is-4">Кількість внесків по місяцям</h4>
               <div class="chart-container"> 
-                <div id="people_chart" class="people_chart ct-major-tenth"></div>
+                <div id="people_chart" class="chart people_chart ct-major-tenth"></div>
               </div>
             </section>
             <section style="margin-top: 50px">
               <h4 class="title is-4">Залишок на рахунку станом на 1 число</h4>
               <div class="chart-container"> 
-                <div id="balance_chart" class="balance_chart ct-major-tenth"></div>
+                <div id="balance_chart" class="chart balance_chart ct-major-tenth"></div>
               </div>
             </section>
           </div>
@@ -62,14 +62,24 @@
     <script>
       let history_table = document.getElementById("history_table");
       let people_chart = document.getElementById("people_chart");
+      let balance_chart = document.getElementById("balance_chart");
+      let charts = document.getElementsByClassName("chart");
       let labels = ["січ", "лют", "бер", "кві", "тра", "чер", "лип", "сер", "вер", "жов", "лис", "гру"]
       function setChartDims() {
         if (window.innerWidth < 768) {
-          people_chart.classList.remove("ct-major-tenth");
-          people_chart.classList.add("ct-minor-sixth");
+          Array.from(charts).forEach(
+            function(element, index, array) {
+              element.classList.remove("ct-major-tenth");
+              element.classList.add("ct-minor-sixth");
+            }
+          );
         } else {
-          people_chart.classList.remove("ct-minor-sixth");
-          people_chart.classList.add("ct-major-tenth");          
+          Array.from(charts).forEach(
+            function(element, index, array) {
+              element.classList.remove("ct-major-sixth");
+              element.classList.add("ct-minor-tenth");
+            }
+          );         
         }
       }
       setChartDims();
@@ -154,6 +164,11 @@
             chrtst_labels.push(label);
           }  
 
+          if (window.innerWidth < 768) {
+            chrtst_labels = chrtst_labels.slice(-12);
+            chrtst_series = chrtst_series.slice(-12);
+          }
+
           let options = {
           };
 
@@ -163,11 +178,7 @@
               axisY: {
                 offset: 25
               },
-              axisX: {
-                labelInterpolationFnc: function (value) {
-                  return value[0];
-                }
-              }
+
             }]
           ];
           new Chartist.Bar('.people_chart', {
