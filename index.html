@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
     <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
     <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src='targetline.min.js'></script>
   </head>
   <body>
     <div class="section">
@@ -28,10 +29,18 @@
       <div class="container">
         <div class="columns is-desktop">
           <div class="column is-two-thirds-desktop is-full-mobile">
-            <h4 class="title is-4">Кількість внесків по місяцям</h4>
-            <div class="chart-container"> 
-              <div id="people_chart" class="people_chart ct-major-tenth"></div>
-            </div>
+            <section>
+              <h4 class="title is-4">Кількість внесків по місяцям</h4>
+              <div class="chart-container"> 
+                <div id="people_chart" class="people_chart ct-major-tenth"></div>
+              </div>
+            </section>
+            <section style="margin-top: 50px">
+              <h4 class="title is-4">Залишок на рахунку станом на 1 число</h4>
+              <div class="chart-container"> 
+                <div id="balance_chart" class="balance_chart ct-major-tenth"></div>
+              </div>
+            </section>
           </div>
           <div class="column is-full-mobile">
             <h4 class="title is-4">Останні внески</h4>
@@ -53,6 +62,7 @@
     <script>
       let history_table = document.getElementById("history_table");
       let people_chart = document.getElementById("people_chart");
+      let labels = ["січ", "лют", "бер", "кві", "тра", "чер", "лип", "сер", "вер", "жов", "лис", "гру"]
       function setChartDims() {
         if (window.innerWidth < 768) {
           people_chart.classList.remove("ct-major-tenth");
@@ -74,6 +84,34 @@
       let stime = document.getElementById("time");
       let sdate = document.getElementById("date");
       goal.textContent = GOAL;
+      fetch("balances.json")
+        .then(response => response.json())
+        .then(json => {
+          console.log(json);
+          let blnc_labels = [];
+          let blnc_series = [];
+          for (let i = 0; i < json.length; i++) {
+            blnc_series.push(json[i]["balance"]);
+            let m_n = parseInt(json[i]["day"].split("/")[1]);
+            let label = labels[m_n-1];
+            if (i === 0 || m_n === 1) {
+              label = label + ' ' + json[i]["day"].split("/")[2];
+            }
+            blnc_labels.push(label);
+          }
+          
+          new Chartist.Bar('.balance_chart', {
+                labels: blnc_labels,
+                series: [blnc_series]
+            }, {
+              plugins: [
+                Chartist.plugins.ctTargetLine({
+                  value: 22500
+                })
+              ]
+            });
+
+        })
       fetch("data.json")
         .then(response => response.json())
         .then(json => {
@@ -104,7 +142,6 @@
           credit.forEach(x => month_year.push({day: x.day, month: x.month+' '+x.year, sum: x.sum}));
           let credit_group = d3.groups(month_year, d => d.month);
           let chrtst_series = []
-          let labels = ["січ", "лют", "бер", "кві", "тра", "чер", "лип", "сер", "вер", "жов", "лис", "гру"]
           let chrtst_labels = [];
           for (let i = 0; i < credit_group.length; i++) {
             let cnt = credit_group[i][1].length;

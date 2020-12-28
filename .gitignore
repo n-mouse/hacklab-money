@@ -1,4 +1,4 @@
 config.cfg
-data.json
+*.json
 data.csv
 data

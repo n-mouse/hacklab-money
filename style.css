@@ -46,7 +46,19 @@ body {
 
 .people_chart .ct-series-a .ct-bar {
     stroke: #216996;
+    stroke-width: 20px;
+}
+
+.balance_chart .ct-series-a .ct-bar {
+    stroke: #216996;
     stroke-width: 25px;
+}
+
+.ct-target-line {
+    stroke: #910a0a;
+    stroke-width: 2px;
+    stroke-dasharray: 4px;
+    shape-rendering: crispEdges;
 }
 
 .table {
