@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
     <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
-    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="d3.min.js"></script>
     <script src='targetline.min.js'></script>
   </head>
   <body>
@@ -32,7 +32,7 @@
             <section>
               <h4 class="title is-4">Кількість внесків по місяцям</h4>
               <div class="chart-container"> 
-                <div id="people_chart" class="chart people_chart ct-major-tenth"></div>
+                <div id="contrib_chart" class="chart contrib_chart ct-major-tenth"></div>
               </div>
             </section>
             <section style="margin-top: 50px">
@@ -61,7 +61,7 @@
 
     <script>
       let history_table = document.getElementById("history_table");
-      let people_chart = document.getElementById("people_chart");
+      let contrib_chart = document.getElementById("contrib_chart");
       let balance_chart = document.getElementById("balance_chart");
       let charts = document.getElementsByClassName("chart");
       let labels = ["січ", "лют", "бер", "кві", "тра", "чер", "лип", "сер", "вер", "жов", "лис", "гру"]
@@ -85,7 +85,7 @@
       setChartDims();
       window.onresize = setChartDims;
 
-      const GOAL = 22500;
+      const GOAL = 23500;
       let main = document.getElementById("main");
       let status = document.getElementById("status");
       let progress = document.getElementById("progress");
@@ -116,7 +116,7 @@
             }, {
               plugins: [
                 Chartist.plugins.ctTargetLine({
-                  value: 22500
+                  value: GOAL 
                 })
               ]
             });
@@ -181,7 +181,7 @@
 
             }]
           ];
-          new Chartist.Bar('.people_chart', {
+          new Chartist.Bar('.contrib_chart', {
                 labels: chrtst_labels,
                 series: [chrtst_series]
             }, options, responsiveOptions);

@@ -44,7 +44,7 @@ body {
     color: #0a540f;
 }
 
-.people_chart .ct-series-a .ct-bar {
+.contrib_chart .ct-series-a .ct-bar {
     stroke: #216996;
     stroke-width: 20px;
 }
@@ -81,7 +81,7 @@ body {
         line-height: 1.2;
     }
 
-    .people_chart .ct-series-a .ct-bar {
+    .contrib_chart .ct-series-a .ct-bar {
         stroke-width: 15px;
     }
 
