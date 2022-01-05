@@ -6,8 +6,9 @@ import csv
 import os.path
 
 CONFIG_FILE = os.path.join(os.path.abspath(os.path.dirname(__file__)),'config.cfg')
-DATA_FILE = os.path.join(os.path.abspath(os.path.dirname(__file__)),'data.json')
-DATA_FILE2 = os.path.join(os.path.abspath(os.path.dirname(__file__)),'data.csv')
+BALANCE_FILE = os.path.join(os.path.abspath(os.path.dirname(__file__)),'data.json')
+DATA_FILE = os.path.join(os.path.abspath(os.path.dirname(__file__)),'data.csv')
+BALANCES_FILE = os.path.join(os.path.abspath(os.path.dirname(__file__)),'balances.json')
 cfg = yaml.load(open(CONFIG_FILE, 'r'), Loader=yaml.BaseLoader)
 PRIVAT_ID = cfg['privat']['id']
 PRIVAT_TOKEN = cfg['privat']['token']
@@ -29,8 +30,15 @@ data = {}
 data['balance'] = balance
 data['day'] = datetime.date.today().strftime("%d/%m/%Y")
 data['time'] = datetime.datetime.now().strftime("%H:%M")
-with open(DATA_FILE, 'w') as outfile:
+with open(BALANCE_FILE, 'w') as outfile:
     json.dump(data, outfile)
+
+if data['day'].split("/")[0] == "01":
+  with open(BALANCES_FILE, 'r+') as outfile:
+    bdata = json.load(outfile)
+    bdata["balances"].append(data)
+    outfile.seek(0)
+    json.dump(bdata, outfile)
 
 reqt = urllib.request.Request(url_transactions, None, headers)
 responset = urllib.request.urlopen(reqt)
@@ -44,11 +52,11 @@ while resultt['exist_next_page']:
   transactions += resultt['transactions']
 
 ids = set()
-with open(DATA_FILE2) as history:
+with open(DATA_FILE) as history:
   for row in csv.reader(history):
     ids.add(row[0])
 
-with open(DATA_FILE2, 'a') as out:
+with open(DATA_FILE, 'a') as out:
   csvout = csv.writer(out)
   for transaction in transactions:
     if transaction['ID'] not in ids:

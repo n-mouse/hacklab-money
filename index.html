@@ -97,15 +97,15 @@
       fetch("balances.json")
         .then(response => response.json())
         .then(json => {
-          console.log(json);
+          data = json["balances"].slice(-12);
           let blnc_labels = [];
           let blnc_series = [];
-          for (let i = 0; i < json.length; i++) {
-            blnc_series.push(json[i]["balance"]);
-            let m_n = parseInt(json[i]["day"].split("/")[1]);
+          for (let i = 0; i < data.length; i++) {
+            blnc_series.push(data[i]["balance"]);
+            let m_n = parseInt(data[i]["day"].split("/")[1]);
             let label = labels[m_n-1];
             if (i === 0 || m_n === 1) {
-              label = label + ' ' + json[i]["day"].split("/")[2];
+              label = label + ' ' + data[i]["day"].split("/")[2];
             }
             blnc_labels.push(label);
           }
