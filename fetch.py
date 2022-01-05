@@ -33,12 +33,13 @@ data['time'] = datetime.datetime.now().strftime("%H:%M")
 with open(BALANCE_FILE, 'w') as outfile:
     json.dump(data, outfile)
 
-if data['day'].split("/")[0] == "01":
+if data['day'].split("/")[0] == "05":
   with open(BALANCES_FILE, 'r+') as outfile:
     bdata = json.load(outfile)
-    bdata["balances"].append(data)
-    outfile.seek(0)
-    json.dump(bdata, outfile)
+    if bdata["balances"][-1]["day"] != data['day']:
+      bdata["balances"].append(data)
+      outfile.seek(0)
+      json.dump(bdata, outfile)
 
 reqt = urllib.request.Request(url_transactions, None, headers)
 responset = urllib.request.urlopen(reqt)
