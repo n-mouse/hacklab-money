@@ -56,9 +56,8 @@ body {
     fill: #216996;
 } 
 
-.balance_chart .ct-series-a .ct-bar {
+.balance_chart .ct-series-a .ct-point, .balance_chart .ct-series-a .ct-line {
     stroke: #216996;
-    stroke-width: 25px;
 }
 
 

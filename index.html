@@ -98,7 +98,7 @@
       fetch("balances.json")
         .then(response => response.json())
         .then(json => {
-          data = json["balances"].slice(-12);
+          data = json["balances"].slice(-20);
           let blnc_labels = [];
           let blnc_series = [];
           for (let i = 0; i < data.length; i++) {
@@ -116,7 +116,7 @@
             blnc_series = blnc_series.slice(-10);
           } 
           
-          new Chartist.Bar('.balance_chart', {
+          new Chartist.Line('.balance_chart', {
                 labels: blnc_labels,
                 series: [blnc_series]
             }, {
