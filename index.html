@@ -110,6 +110,11 @@
             }
             blnc_labels.push(label);
           }
+
+          if (window.innerWidth < 768) {
+            blnc_labels = blnc_labels.slice(-10);
+            blnc_series = blnc_series.slice(-10);
+          } 
           
           new Chartist.Bar('.balance_chart', {
                 labels: blnc_labels,
