@@ -132,7 +132,7 @@
             status.classList.add('alert');
             progress.classList.add("is-danger");
           } else {
-            status.textContent = "Хаклаб не в скруті";
+            status.textContent = "Хаклаб не в скруті (але розслаблятись не варто)";
             status.classList.add('cool');
             progress.classList.add("is-success");
             let pillow = document.getElementById("pillow");
@@ -167,6 +167,9 @@
           if (window.innerWidth < 768) {
             chrtst_labels = chrtst_labels.slice(-12);
             chrtst_series = chrtst_series.slice(-12);
+          } else {
+            chrtst_labels = chrtst_labels.slice(-24);
+            chrtst_series = chrtst_series.slice(-24);            
           }
 
           let options = {
