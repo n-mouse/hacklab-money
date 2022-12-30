@@ -44,15 +44,23 @@ body {
     color: #0a540f;
 }
 
-.contrib_chart .ct-series-a .ct-bar {
+.contrib_chart .ct-series-a .ct-point {
     stroke: #216996;
-    stroke-width: 20px;
 }
+
+.contrib_chart .ct-series-a .ct-line {
+    stroke: #216996;
+} 
+
+.contrib_chart .ct-series-a .ct-area {
+    fill: #216996;
+} 
 
 .balance_chart .ct-series-a .ct-bar {
     stroke: #216996;
     stroke-width: 25px;
 }
+
 
 .ct-target-line {
     stroke: #910a0a;

@@ -55,6 +55,7 @@
               </tbody>
             </table>
           </div>
+          
         </div>
       </div>
     </div>
@@ -165,14 +166,16 @@
           }  
 
           if (window.innerWidth < 768) {
-            chrtst_labels = chrtst_labels.slice(-12);
-            chrtst_series = chrtst_series.slice(-12);
+            chrtst_labels = chrtst_labels.slice(-10);
+            chrtst_series = chrtst_series.slice(-10);
           } else {
             chrtst_labels = chrtst_labels.slice(-24);
             chrtst_series = chrtst_series.slice(-24);            
           }
 
           let options = {
+            low: 0,
+            showArea: true
           };
 
           let responsiveOptions = [
@@ -184,7 +187,7 @@
 
             }]
           ];
-          new Chartist.Bar('.contrib_chart', {
+          new Chartist.Line('.contrib_chart', {
                 labels: chrtst_labels,
                 series: [chrtst_series]
             }, options, responsiveOptions);
